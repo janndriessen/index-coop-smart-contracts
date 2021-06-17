@@ -56,13 +56,19 @@ describe("CompReinvestmentAdapter", () => {
 
   describe("#constructor", async () => {
     let subjectManagerAddress: Address;
+    let comptrollerAddress: Address;
 
     beforeEach(async () => {
       subjectManagerAddress = baseManagerV2.address;
+      // TODO: set mock comptroller address
+      comptrollerAddress = baseManagerV2.address;
     });
 
     async function subject(): Promise<CompReinvestmentAdapter> {
-      return await deployer.adapters.deployCompReinvestmentAdapter(subjectManagerAddress);
+      return await deployer.adapters.deployCompReinvestmentAdapter(
+        subjectManagerAddress,
+        comptrollerAddress,
+      );
     }
 
     it("should set the manager address", async () => {
