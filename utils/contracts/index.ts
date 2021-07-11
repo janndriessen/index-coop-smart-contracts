@@ -1,6 +1,7 @@
 export { BaseAdapterMock } from "../../typechain/BaseAdapterMock";
 export { BaseManager } from "../../typechain/BaseManager";
 export { ChainlinkAggregatorV3Mock } from "../../typechain/ChainlinkAggregatorV3Mock";
+export { CompReinvestmentAdapter } from "../../typechain/CompReinvestmentAdapter"
 export { ExchangeIssuance } from "../../typechain/ExchangeIssuance";
 export { ExchangeIssuanceV2 } from "../../typechain/ExchangeIssuanceV2";
 export { FeeSplitAdapter } from "../../typechain/FeeSplitAdapter";

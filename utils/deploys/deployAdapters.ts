@@ -1,15 +1,24 @@
 import { Signer, BigNumber } from "ethers";
-import { Address, ContractSettings, MethodologySettings, ExecutionSettings, IncentiveSettings, ExchangeSettings } from "../types";
 import {
+  Address,
+  ContractSettings,
+  MethodologySettings,
+  ExecutionSettings,
+  IncentiveSettings,
+  ExchangeSettings,
+} from "../types";
+import {
+  CompReinvestmentAdapter,
   ExchangeIssuance,
   ExchangeIssuanceV2,
   FlexibleLeverageStrategyExtension,
   FeeSplitAdapter,
   GIMExtension,
   GovernanceAdapter,
-  StreamingFeeSplitExtension
+  StreamingFeeSplitExtension,
 } from "../contracts/index";
 
+import { CompReinvestmentAdapter__factory } from "../../typechain/factories/CompReinvestmentAdapter__factory";
 import { ExchangeIssuance__factory } from "../../typechain/factories/ExchangeIssuance__factory";
 import { ExchangeIssuanceV2__factory } from "../../typechain/factories/ExchangeIssuanceV2__factory";
 import { FeeSplitAdapter__factory } from "../../typechain/factories/FeeSplitAdapter__factory";
@@ -25,6 +34,16 @@ export default class DeployAdapters {
     this._deployerSigner = deployerSigner;
   }
 
+  public async deployCompReinvestmentAdapter(
+    manager: Address,
+    comptroller: Address,
+  ): Promise<CompReinvestmentAdapter> {
+    return await new CompReinvestmentAdapter__factory(this._deployerSigner).deploy(
+      manager,
+      comptroller,
+    );
+  }
+
   public async deployFeeSplitAdapter(
     manager: Address,
     streamingFeeModule: Address,
@@ -35,7 +54,7 @@ export default class DeployAdapters {
       manager,
       streamingFeeModule,
       debtIssuanceModule,
-      operatorFeeSplit
+      operatorFeeSplit,
     );
   }
 
@@ -47,7 +66,7 @@ export default class DeployAdapters {
     return await new StreamingFeeSplitExtension__factory(this._deployerSigner).deploy(
       manager,
       streamingFeeModule,
-      operatorFeeSplit
+      operatorFeeSplit,
     );
   }
 
@@ -57,7 +76,7 @@ export default class DeployAdapters {
   ): Promise<GovernanceAdapter> {
     return await new GovernanceAdapter__factory(this._deployerSigner).deploy(
       manager,
-      governanceModule
+      governanceModule,
     );
   }
 
@@ -67,7 +86,7 @@ export default class DeployAdapters {
   ): Promise<GIMExtension> {
     return await new GIMExtension__factory(this._deployerSigner).deploy(
       manager,
-      generalIndexModule
+      generalIndexModule,
     );
   }
 
@@ -78,7 +97,7 @@ export default class DeployAdapters {
     executionSettings: ExecutionSettings,
     incentiveSettings: IncentiveSettings,
     exchangeNames: string[],
-    exchangeSettings: ExchangeSettings[]
+    exchangeSettings: ExchangeSettings[],
   ): Promise<FlexibleLeverageStrategyExtension> {
     return await new FlexibleLeverageStrategyExtension__factory(this._deployerSigner).deploy(
       manager,
@@ -107,7 +126,7 @@ export default class DeployAdapters {
       sushiFactoryAddress,
       sushiRouterAddress,
       setControllerAddress,
-      basicIssuanceModuleAddress
+      basicIssuanceModuleAddress,
     );
   }
 
@@ -127,7 +146,7 @@ export default class DeployAdapters {
       sushiFactoryAddress,
       sushiRouterAddress,
       setControllerAddress,
-      basicIssuanceModuleAddress
+      basicIssuanceModuleAddress,
     );
   }
 }
